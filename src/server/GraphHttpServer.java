@@ -9,7 +9,6 @@ import java.io.StringWriter;
 import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
 
-import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 
 import com.sun.net.httpserver.HttpExchange;
@@ -33,13 +32,11 @@ public class GraphHttpServer {
     //server.createContext("/page_style.css", new LoadCssHandler());
     server.setExecutor(null); // creates a default executor
     server.start();
-	//test();
   }
 
   static class DisplayHandler implements HttpHandler {
     public void handle(HttpExchange t) throws IOException {
       String file = t.getRequestURI().toString();
-      String extension = FilenameUtils.getExtension(file);
       InputStream is = new FileInputStream(ABS_PATH + file);
       StringWriter writer = new StringWriter();
       IOUtils.copy(is, writer, Charset.defaultCharset());
